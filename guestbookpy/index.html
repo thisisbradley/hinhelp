@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-		<title>Todos</title>
+		<title>hinhelper</title>
 		<link rel="stylesheet" type="text/css" href="stylesheets/main.css"/>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 	</head>
@@ -11,18 +11,18 @@
 	<div style="width: 100%;">
 		<div class="topLine">
 			<div style="float: left;"><img src="images/todo.png" /></div>
-			<div style="float: left;" class="headline">Todos</div>
+			<div style="float: left;" class="headline">Words</div>
 			<div style="float: right;"><a href="{{ url }}">{{ url_linktext }}</a> {{user.nickname}}</div>
 		</div>
 	</div>
 
 <div style="clear: both;"/>	
 
-{# Check if we have any todos, only in this case render the table #}
+{# Check if we have any words, only in this case render the table #}
 
-{% if numbertodos %}
+{% if numberwords %}
  
-You have a total number of {{numbertodos}} Todos. 
+You have a total number of {{numberwords}} words. 
 
 <table>
   <tr>
@@ -38,34 +38,34 @@ You have a total number of {{numbertodos}} Todos.
       <th>Send Email reminder</th>
     </tr>
 
-{% for todo in todos %}
+{% for word in words %}
 <tr> 
 <td>
-{{todo.shortDescription}}
+{{word.shortDescription}}
 </td>
 <td>
-{{todo.dueDate}}
+{{word.dueDate}}
 </td>
 <td>
-{{todo.longDescription}}
+{{word.longDescription}}
 </td>
 <td>
-{% if todo.url %}
-<a  href="{{todo.url}}" > {{todo.url}}</a>
+{% if word.url %}
+<a  href="{{word.url}}" > {{word.url}}</a>
 
 {% endif %}
 </td>
 <td>
-{{todo.created|date:"d.m.Y"}}
+{{word.created|date:"d.m.Y"}}
 </td>
 <td>
-{{todo.updated|date:"d.m.Y"}}
+{{word.updated|date:"d.m.Y"}}
 </td>
 <td>
-<a class="done" href="/done?id={{todo.key.id}}" >Done</a>
+<a class="done" href="/done?id={{word.key.id}}" >Done</a>
 </td>
 <td>
-<a class="email" href="/email?id={{todo.key.id}}" >Email</a>
+<a class="email" href="/email?id={{word.key.id}}" >Email</a>
 </td>
 </tr> 
 {% endfor %}
@@ -78,7 +78,7 @@ You have a total number of {{numbertodos}} Todos.
 
 
 
-<div class="headline">Create new Todo?</div>
+<div class="headline">Create new Word?</div>
 
 {% if user %}
 
@@ -107,7 +107,7 @@ You have a total number of {{numbertodos}} Todos.
 </form>
 
 {% else %}
-Login with your Google Account to create and review todos.
+Login with your Google Account to create and review hindi words.
 {% endif%}
 
 

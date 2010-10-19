@@ -5,9 +5,9 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 from google.appengine.api import mail
 
-# Todo defines the data model for the Todos
+# Word defines the data model for the Words
 # as it extends db.model the content of the class will automatically stored
-class TodoModel(db.Model):
+class WordModel(db.Model):
   author 	   = db.UserProperty(required=True)
   shortDescription = db.StringProperty(required=True)
   longDescription  = db.StringProperty(multiline=True)
@@ -30,12 +30,12 @@ class MainPage(webapp.RequestHandler):
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
 # GQL is similar to SQL             
-        todos = TodoModel.gql("WHERE author = :author and finished=false",
+        words = WordModel.gql("WHERE author = :author and finished=false",
                author=users.get_current_user())
         
         values = {
-            'todos': todos,
-	    'numbertodos' : todos.count(),
+            'words': words,
+	        'numberwords' : words.count(),
             'user': user,
             'url': url,
             'url_linktext': url_linktext,
@@ -44,7 +44,7 @@ class MainPage(webapp.RequestHandler):
 
 
 
-# This class creates a new Todo item
+# This class creates a new Words item
 class New(webapp.RequestHandler):
     def post(self):
         user = users.get_current_user()
@@ -52,26 +52,26 @@ class New(webapp.RequestHandler):
 	    testurl = self.request.get('url')
 	    if not testurl.startswith("http://") and testurl:
 		testurl = "http://"+ testurl
-            todo = TodoModel(
+            word = WordModel(
                 author  = users.get_current_user(),
                 shortDescription = self.request.get('shortDescription'),
                 longDescription = self.request.get('longDescription'),
                 dueDate = self.request.get('dueDate'),
                 url = testurl,
 		finished = False)
-            todo.put();
+            word.put();
                 
             self.redirect('/')           
 
-# This class deletes the selected Todo
+# This class deletes the selected Word
 class Done(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
             raw_id = self.request.get('id')
             id = int(raw_id)
-            todo = TodoModel.get_by_id(id)
-            todo.delete()
+            word = WordModel.get_by_id(id)
+            word.delete()
             self.redirect('/')
 
 
@@ -82,11 +82,11 @@ class Email(webapp.RequestHandler):
 	if user:
             raw_id = self.request.get('id')
             id = int(raw_id)
-            todo = TodoModel.get_by_id(id)
+            word = WordModel.get_by_id(id)
 	    message = mail.EmailMessage(sender=user.email(),
-                            subject=todo.shortDescription)
+                            subject=word.shortDescription)
 	    message.to = user.email()
-	    message.body = todo.longDescription
+	    message.body = word.longDescription
 	    message.send()
    	    self.redirect('/')
 
