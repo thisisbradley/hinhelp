@@ -8,12 +8,12 @@ from google.appengine.api import mail
 # Word defines the data model for the Words
 # as it extends db.model the content of the class will automatically stored
 class WordModel(db.Model):
-  author 	   = db.UserProperty(required=True)
+  author 	       = db.UserProperty(required=True)
   shortDescription = db.StringProperty(required=True)
   longDescription  = db.StringProperty(multiline=True)
-  url 	 	   = db.StringProperty()
+  url 	 	       = db.StringProperty()
   created          = db.DateTimeProperty(auto_now_add=True)
-  updated 	   = db.DateTimeProperty(auto_now=True)
+  updated 	       = db.DateTimeProperty(auto_now=True)
   dueDate          = db.StringProperty(required=True)
   finished         = db.BooleanProperty()
 
@@ -94,8 +94,8 @@ class Email(webapp.RequestHandler):
 application = webapp.WSGIApplication(
                                      [('/', MainPage),
                                       ('/new', New),
-				      ('/done', Done),
-				      ('/email', Email)],
+				                      ('/done', Done),
+				                      ('/email', Email)],
                                      debug=True)
 
 # Register the wsgi application to run
