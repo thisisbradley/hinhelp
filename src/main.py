@@ -9,12 +9,12 @@ from google.appengine.api import mail
 # as it extends db.model the content of the class will automatically stored
 class WordModel(db.Model):
   author 	       = db.UserProperty(required=True)
-  shortDescription = db.StringProperty(required=True)
-  longDescription  = db.StringProperty(multiline=True)
+  wordID = db.StringProperty(required=True)
+  meaning  = db.StringProperty(multiline=True)
   url 	 	       = db.StringProperty()
   created          = db.DateTimeProperty(auto_now_add=True)
   updated 	       = db.DateTimeProperty(auto_now=True)
-  dueDate          = db.StringProperty(required=True)
+  phonetics          = db.StringProperty(required=True)
   finished         = db.BooleanProperty()
 
 
@@ -54,9 +54,9 @@ class New(webapp.RequestHandler):
 		testurl = "http://"+ testurl
             word = WordModel(
                 author  = users.get_current_user(),
-                shortDescription = self.request.get('shortDescription'),
-                longDescription = self.request.get('longDescription'),
-                dueDate = self.request.get('dueDate'),
+                wordID = self.request.get('wordID'),
+                meaning = self.request.get('meaning'),
+                phonetics = self.request.get('phonetics'),
                 url = testurl,
 		finished = False)
             word.put();
@@ -84,9 +84,9 @@ class Email(webapp.RequestHandler):
             id = int(raw_id)
             word = WordModel.get_by_id(id)
 	    message = mail.EmailMessage(sender=user.email(),
-                            subject=word.shortDescription)
+                            subject=word.wordID)
 	    message.to = user.email()
-	    message.body = word.longDescription
+	    message.body = word.meaning
 	    message.send()
    	    self.redirect('/')
 

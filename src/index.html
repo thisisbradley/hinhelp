@@ -10,8 +10,8 @@
 
 	<div style="width: 100%;">
 		<div class="topLine">
-			<div style="float: left;"><img src="images/todo.png" /></div>
-			<div style="float: left;" class="headline">Words</div>
+			<div style="float: left;"> <!-- <img src="images/todo.png" / --> </div>
+			<div style="float: left;" class="headline">Save words</div>
 			<div style="float: right;"><a href="{{ url }}">{{ url_linktext }}</a> {{user.nickname}}</div>
 		</div>
 	</div>
@@ -21,33 +21,31 @@
 {# Check if we have any words, only in this case render the table #}
 
 {% if numberwords %}
- 
-You have a total number of {{numberwords}} words. 
-
+<p> 
 <table>
   <tr>
     
 
-      <th>Short description </th>
-      <th>Due Date</th>
-      <th>Long Description</th>
-      <th>URL</th>
-      <th>Created</th>
-      <th>Updated</th>
-      <th>Done</th>
-      <th>Send Email reminder</th>
+      <th>word</th>
+      <th>phonetics</th>
+      <th>meaning</th>
+      <th>blank URL</th>
+      <th>created</th>
+      <th>updated</th>
+      <th>done</th>
+      <th>ping</th>
     </tr>
 
 {% for word in words %}
 <tr> 
 <td>
-{{word.shortDescription}}
+{{word.wordID}}
 </td>
 <td>
-{{word.dueDate}}
+{{word.phonetics}}
 </td>
 <td>
-{{word.longDescription}}
+{{word.meaning}}
 </td>
 <td>
 {% if word.url %}
@@ -70,6 +68,8 @@ You have a total number of {{numberwords}} words.
 </tr> 
 {% endfor %}
 </table>
+<p>
+ {{numberwords}} words
 
 {% endif %}
 
@@ -85,20 +85,16 @@ You have a total number of {{numberwords}} words.
 <form action="/new" method="post">
 	<table>
 		<tr>
-			<td><label for="shortDescription">Summary</label></td>
-			<td><input type="text" name="shortDescription" id="shortDescriptions" size="80"/></td>
+			<td><label for="wordID">Word</label></td>
+			<td><input type="text" name="wordID" id="wordIDs" size="40"/></td>
 		</tr>
 		<tr>
-			<td><label for="dueDate">Due Date</label></td>
-			<td><input type="dueDate" name="dueDate" id="dueDate"/></td>
+			<td><label for="phonetics">Phonetics</label></td>
+			<td><input type="phonetics" name="phonetics" id="phonetics" size="40"/></td>
 		</tr>
 		<tr>
-			<td valign="top"><label for="longDescription">Description</label></td>
-			<td><textarea rows="4" cols="80" name="longDescription" id="longDescription"></textarea></td>
-		</tr>
-		<tr>
-			<td><label for="url">URL</label></td>
-			<td><input type="text" name="url" id="url" size="80"/></td>
+			<td valign="top"><label for="meaning">Meaning</label></td>
+			<td><textarea rows="2" cols="40" name="meaning" id="meaning"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="right"><input type="submit" value="Create"/></td>
