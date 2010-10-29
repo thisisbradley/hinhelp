@@ -1,1 +1,1 @@
- appcfg.py update guestbookpy  
+ appcfg.py update src   
