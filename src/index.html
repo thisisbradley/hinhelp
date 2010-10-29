@@ -12,7 +12,19 @@
 		<div class="topLine">
 			<div style="float: left;"> <!-- <img src="images/todo.png" / --> </div>
 			<div style="float: left;" class="headline">Save words</div>
-			<div style="float: right;"><a href="{{ url }}">{{ url_linktext }}</a> {{user.nickname}}</div>
+			<div style="float: right;"><a href="{{ url }}">{{ url_linktext }}</a> {{user.nickname}}
+			                           
+<script type="text/javascript">
+var d = new Date()
+document.write(d.getHours())
+document.write(".")
+document.write(d.getMinutes() + 1)
+document.write(".")
+document.write(d.getSeconds())
+</script>
+			                           
+			                          			                           
+		   </div>
 		</div>
 	</div>
 
@@ -24,15 +36,13 @@
 <p> 
 <table>
   <tr>
-    
-
       <th>word</th>
       <th>phonetics</th>
       <th>meaning</th>
       <th>blank URL</th>
       <th>created</th>
       <th>updated</th>
-      <th>done</th>
+      <th>flag</th>
       <th>ping</th>
     </tr>
 
@@ -42,15 +52,14 @@
 {{word.wordID}}
 </td>
 <td>
-{{word.phonetics}}
+{% if word.phonetics %} {{word.phonetics}} {% endif %}
 </td>
 <td>
-{{word.meaning}}
+{% if word.meaning %} {{word.meaning}} {% endif %}
 </td>
 <td>
 {% if word.url %}
 <a  href="{{word.url}}" > {{word.url}}</a>
-
 {% endif %}
 </td>
 <td>
@@ -105,7 +114,6 @@
 {% else %}
 Login with your Google Account to create and review hindi words.
 {% endif%}
-
 
 </body>
 </html>

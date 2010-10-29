@@ -14,7 +14,7 @@ class WordModel(db.Model):
   url 	 	       = db.StringProperty()
   created          = db.DateTimeProperty(auto_now_add=True)
   updated 	       = db.DateTimeProperty(auto_now=True)
-  phonetics          = db.StringProperty(required=True)
+  phonetics        = db.StringProperty(required=True)
   finished         = db.BooleanProperty()
 
 
